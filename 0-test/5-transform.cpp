@@ -5,7 +5,7 @@
 * 
 * 需要下载GLM
 * https://glm.g-truc.net/0.9.8/index.html
-* 将头文件所在文件及加入 属性 -> C/C++ -> 附加包含目录
+* 将头文件文件夹加入 属性 -> C/C++ -> 附加包含目录
 */
 
 #include <glad/glad.h>
@@ -88,7 +88,7 @@ int transform()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	data = stbi_load("./texture/emblem.jpg", &width, &height, &nrChannels, 0);
-	//data = stbi_load("D:/personal/壁纸/atcodertitle.jpg", &width, &height, &nrChannels, 0);
+
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

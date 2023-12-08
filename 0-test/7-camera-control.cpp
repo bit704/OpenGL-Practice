@@ -1,5 +1,5 @@
 /*
-* 相机
+* 抽象相机类
 * https://learnopengl-cn.github.io/01%20Getting%20started/09%20Camera/
 */
 
@@ -31,7 +31,7 @@ float lastY = ScreenHeight / 2.0f;
 bool firstMouse = true;
 
 // 计时
-float deltaTime = 0.0f;	// time between current frame and last frame
+float deltaTime = 0.0f;	// 当前帧与上一帧的时差
 float lastFrame = 0.0f;
 
 int main()
@@ -104,7 +104,7 @@ int camera_control()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	data = stbi_load("./texture/emblem.jpg", &width, &height, &nrChannels, 0);
-	//data = stbi_load("D:/personal/壁纸/atcodertitle.jpg", &width, &height, &nrChannels, 0);
+
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

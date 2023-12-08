@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\code\ProjectsForStudy\VSProjects\OpenglProjects\OpenGL-Practice\glm-0.9.8.5\glm;D:\code\ProjectsForStudy\VSProjects\OpenglProjects\OpenGL-Practice\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\glm-0.9.8.5\glm;..\glad\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad\src\glad.c" />
+    <ClCompile Include="..\tools\stb_image.cpp" />
     <ClCompile Include="0-testGLFW.cpp" />
     <ClCompile Include="0-testGLUT.cpp" />
     <ClCompile Include="1-triangle.cpp" />
@@ -139,7 +140,6 @@
     <ClCompile Include="5-transform.cpp" />
     <ClCompile Include="6-coordinate-system.cpp" />
     <ClCompile Include="7-camera-control.cpp" />
-    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
