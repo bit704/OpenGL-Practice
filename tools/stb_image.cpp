@@ -1,2 +1,2 @@
-#define STB_IMAGE_IMPLEMENTATION // 只包含相关的函数定义源码
+#define STB_IMAGE_IMPLEMENTATION // 鍙寘鍚浉鍏崇殑鍑芥暟瀹氫箟婧愮爜
 #include "../tools/stb_image.h"

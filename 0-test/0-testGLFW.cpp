@@ -1,16 +1,16 @@
 /*
-* Ê¹ÓÃnuget°²×°nupengl
-* ²Î¿¼£ºhttps://www.cnblogs.com/steamedbun/p/11259376.html
-* °üÔÚpackagesÎÄ¼ş¼ĞÏÂ
+* ä½¿ç”¨nugetå®‰è£…nupengl
+* å‚è€ƒï¼šhttps://www.cnblogs.com/steamedbun/p/11259376.html
+* åŒ…åœ¨packagesæ–‡ä»¶å¤¹ä¸‹
 * 
-* Ê¹ÓÃGLFW¿â
-* LearnOpenGL Ê¹ÓÃGLFW
+* ä½¿ç”¨GLFWåº“
+* LearnOpenGL ä½¿ç”¨GLFW
 * https://learnopengl-cn.github.io/01%20Getting%20started/03%20Hello%20Window/
 * 
-* ĞèÒªÏÂÔØglad
+* éœ€è¦ä¸‹è½½glad
 * https://glad.dav1d.de/
-* ½«Í·ÎÄ¼şÎÄ¼ş¼Ğ¼ÓÈë ÊôĞÔ -> C/C++ -> ¸½¼Ó°üº¬Ä¿Â¼
-* ½«Ô´ÎÄ¼ş£¨glad.c£©¼ÓÈëÏîÄ¿
+* å°†å¤´æ–‡ä»¶æ–‡ä»¶å¤¹åŠ å…¥ å±æ€§ -> C/C++ -> é™„åŠ åŒ…å«ç›®å½•
+* å°†æºæ–‡ä»¶ï¼ˆglad.cï¼‰åŠ å…¥é¡¹ç›®
 */
 
 #include <glad/glad.h>
@@ -34,7 +34,7 @@ int testGLFW()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-    // ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+    // åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
     GLFWwindow* window = glfwCreateWindow(800, 600, "test", NULL, NULL);
     if (window == NULL)
     {
@@ -50,18 +50,18 @@ int testGLFW()
         return -1;
     }
 
-    glViewport(0, 0, 800, 600); // ÊÓ¿Ú´óĞ¡
+    glViewport(0, 0, 800, 600); // è§†å£å¤§å°
 
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // ×¢²á£¬´°¿Úµ÷Õû´óĞ¡µÄÊ±ºòµ÷ÓÃÕâ¸öº¯Êı
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // æ³¨å†Œï¼Œçª—å£è°ƒæ•´å¤§å°çš„æ—¶å€™è°ƒç”¨è¿™ä¸ªå‡½æ•°
 
-    while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+    while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
     {
         processInput(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT); // Çå¿Õ
+        glClear(GL_COLOR_BUFFER_BIT); // æ¸…ç©º
 
-        glfwSwapBuffers(window); // Ë«»º³å
+        glfwSwapBuffers(window); // åŒç¼“å†²
         glfwPollEvents(); 
     }
 

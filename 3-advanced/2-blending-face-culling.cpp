@@ -1,8 +1,8 @@
 /*
-* »ìºÏ
-* »æÖÆÍ¸Ã÷´°»§
+* æ··åˆ
+* ç»˜åˆ¶é€æ˜çª—æˆ·
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/03%20Blending/
-* ³¢ÊÔÌŞ³ı
+* å°è¯•å‰”é™¤
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/04%20Face%20culling/
 */
 
@@ -31,14 +31,14 @@ int blending_face_culling();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -56,7 +56,7 @@ int blending_face_culling()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -70,7 +70,7 @@ int blending_face_culling()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -80,7 +80,7 @@ int blending_face_culling()
 	}
 
 	/*
-	* Í¨ÓÃ³õÊ¼»¯½áÊø
+	* é€šç”¨åˆå§‹åŒ–ç»“æŸ
 	*/
 
 	float cubeVertices[] = {
@@ -150,7 +150,7 @@ int blending_face_culling()
 		1.0f,  0.5f,  0.0f,  1.0f,  0.0f
 	};
 
-	// ´°»§Î»ÖÃ
+	// çª—æˆ·ä½ç½®
 	vector<glm::vec3> windows
 	{
 		glm::vec3(-1.5f, 0.0f, -0.48f),
@@ -199,27 +199,27 @@ int blending_face_culling()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glBindVertexArray(0);
 
-	// ¼ÓÔØÎÆÀí
+	// åŠ è½½çº¹ç†
 	unsigned int cubeTexture = loadTexture("./texture/metal.jpg");
 	unsigned int floorTexture = loadTexture("./texture/marble.jpg");
 	unsigned int transparentTexture = loadTexture("./texture/blending_transparent_window.png");
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader materialShader("./shader/2-material-vs.glsl", "./shader/2-material-fs.glsl");
 
 	materialShader.use();
 	materialShader.setInt("texture1", 0);
 
-	// OpenGLÈ«¾Ö×´Ì¬
+	// OpenGLå…¨å±€çŠ¶æ€
 	glEnable(GL_DEPTH_TEST);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// ¿ªÆôÌŞ³ı
+	// å¼€å¯å‰”é™¤
 	//glEnable(GL_CULL_FACE);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -230,7 +230,7 @@ int blending_face_culling()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// ¸øÍ¸Ã÷´°»§ÅÅĞò
+		// ç»™é€æ˜çª—æˆ·æ’åº
 		std::map<float, glm::vec3> sorted;
 		for (unsigned int i = 0; i < windows.size(); i++)
 		{
@@ -244,7 +244,7 @@ int blending_face_culling()
 		glm::mat4 model = glm::mat4(1.0f);
 		materialShader.setMat4("projection", projection);
 		materialShader.setMat4("view", view);
-		// »æÖÆcube
+		// ç»˜åˆ¶cube
 		glBindVertexArray(cubeVAO);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, cubeTexture);
@@ -255,13 +255,13 @@ int blending_face_culling()
 		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
 		materialShader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		// »æÖÆfloor
+		// ç»˜åˆ¶floor
 		glBindVertexArray(planeVAO);
 		glBindTexture(GL_TEXTURE_2D, floorTexture);
 		model = glm::mat4(1.0f);
 		materialShader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-		// ´ÓÔ¶µ½½ü»æÖÆÍ¸Ã÷´°»§
+		// ä»è¿œåˆ°è¿‘ç»˜åˆ¶é€æ˜çª—æˆ·
 		glBindVertexArray(transparentVAO);
 		glBindTexture(GL_TEXTURE_2D, transparentTexture);
 		for (std::map<float, glm::vec3>::reverse_iterator it = sorted.rbegin(); it != sorted.rend(); ++it)

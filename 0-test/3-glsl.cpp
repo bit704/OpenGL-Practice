@@ -1,7 +1,7 @@
 /*
-* »æÖÆÒ»¸öËæÊ±¼ä±ä»¯ÑÕÉ«µÄÈı½ÇĞÎ
-* Ê¹ÓÃ×ÅÉ«Æ÷Àà
-* Ê¹ÓÃuniform
+* ç»˜åˆ¶ä¸€ä¸ªéšæ—¶é—´å˜åŒ–é¢œè‰²çš„ä¸‰è§’å½¢
+* ä½¿ç”¨ç€è‰²å™¨ç±»
+* ä½¿ç”¨uniform
 * https://learnopengl-cn.github.io/01%20Getting%20started/05%20Shaders/
 */
 
@@ -27,7 +27,7 @@ int glsl()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(800, 600, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -36,7 +36,7 @@ int glsl()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // ×¢²á£¬´°¿Úµ÷Õû´óĞ¡µÄÊ±ºòµ÷ÓÃÕâ¸öº¯Êı
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // æ³¨å†Œï¼Œçª—å£è°ƒæ•´å¤§å°çš„æ—¶å€™è°ƒç”¨è¿™ä¸ªå‡½æ•°
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -44,57 +44,57 @@ int glsl()
 		return -1;
 	}
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader ourShader("./shader/3-vs.glsl", "./shader/3-fs.glsl");
 
 
-	// Èı½ÇĞÎ¶¥µãÎ»ÖÃ¡¢ÑÕÉ«
+	// ä¸‰è§’å½¢é¡¶ç‚¹ä½ç½®ã€é¢œè‰²
 	float vertices[] = {
-		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // ÓÒÏÂ
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // ×óÏÂ
-		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // ¶¥²¿
+		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // å³ä¸‹
+		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // å·¦ä¸‹
+		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // é¡¶éƒ¨
 	};
 
-	// ´´½¨VAO
+	// åˆ›å»ºVAO
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
-	// ÏÈ°óVAO£¬ÔÙ°óVBO£¬ÔÙÉèÖÃ¶¥µãÊôĞÔ
+	// å…ˆç»‘VAOï¼Œå†ç»‘VBOï¼Œå†è®¾ç½®é¡¶ç‚¹å±æ€§
 	glBindVertexArray(VAO);
 
-	// ´´½¨VBO
+	// åˆ›å»ºVBO
 	unsigned int VBO;
-	glGenBuffers(1, &VBO); // Éú³ÉÒ»¸öVBO¶ÔÏó
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); // °ÑĞÂ´´½¨µÄ»º³å°ó¶¨µ½GL_ARRAY_BUFFERÄ¿±ê
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // ¶¥µãÊı¾İ¸´ÖÆµ½»º³åµÄÄÚ´æÖĞ
+	glGenBuffers(1, &VBO); // ç”Ÿæˆä¸€ä¸ªVBOå¯¹è±¡
+	glBindBuffer(GL_ARRAY_BUFFER, VBO); // æŠŠæ–°åˆ›å»ºçš„ç¼“å†²ç»‘å®šåˆ°GL_ARRAY_BUFFERç›®æ ‡
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // é¡¶ç‚¹æ•°æ®å¤åˆ¶åˆ°ç¼“å†²çš„å†…å­˜ä¸­
 
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	// ÑÕÉ«ÊôĞÔ
+	// é¢œè‰²å±æ€§
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	// ¿ÉÒÔ½â°ó£¬Ò²¿É²»½â°ó
+	// å¯ä»¥è§£ç»‘ï¼Œä¹Ÿå¯ä¸è§£ç»‘
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//glBindVertexArray(0);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		processInput(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT); // Çå¿Õ
+		glClear(GL_COLOR_BUFFER_BIT); // æ¸…ç©º
 
-		ourShader.use(); // ¼¤»î
+		ourShader.use(); // æ¿€æ´»
 
 		float timeValue = glfwGetTime();
 		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-		ourShader.setUniformColor("uniformColor", 0.0f, greenValue, 0.0f, 1.0f); // ¸üĞÂuniformÑÕÉ«
+		ourShader.setUniformColor("uniformColor", 0.0f, greenValue, 0.0f, 1.0f); // æ›´æ–°uniformé¢œè‰²
 
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3); // »æÖÆ
+		glDrawArrays(GL_TRIANGLES, 0, 3); // ç»˜åˆ¶
 
-		glfwSwapBuffers(window); // Ë«»º³å
+		glfwSwapBuffers(window); // åŒç¼“å†²
 		glfwPollEvents();
 	}
 

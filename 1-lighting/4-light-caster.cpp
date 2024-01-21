@@ -1,6 +1,6 @@
 /*
-* Ò»¸ö·½Ïò¹â¡¢ËÄ¸öµã¹â¡¢Ò»¸ö¾Û¹â£¨ÊÖµçÍ²£©
-* ½«¹âÕÕ¼ÆËã·â×°µ½GLSLº¯ÊıÖĞ
+* ä¸€ä¸ªæ–¹å‘å…‰ã€å››ä¸ªç‚¹å…‰ã€ä¸€ä¸ªèšå…‰ï¼ˆæ‰‹ç”µç­’ï¼‰
+* å°†å…‰ç…§è®¡ç®—å°è£…åˆ°GLSLå‡½æ•°ä¸­
 * https://learnopengl-cn.github.io/02%20Lighting/05%20Light%20casters/
 * https://learnopengl-cn.github.io/02%20Lighting/06%20Multiple%20lights/
 */
@@ -26,14 +26,14 @@ int light_caster();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -51,7 +51,7 @@ int light_caster()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -65,7 +65,7 @@ int light_caster()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -74,7 +74,7 @@ int light_caster()
 		return -1;
 	}
 
-	// ¶¥µã
+	// é¡¶ç‚¹
 	float vertices[] = {
 		// positions          // normals           // texture coords
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -120,7 +120,7 @@ int light_caster()
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 	};
 
-	// ²»Í¬Á¢·½ÌåµÄÊÀ½ç¿Õ¼äÎ»ÖÃ
+	// ä¸åŒç«‹æ–¹ä½“çš„ä¸–ç•Œç©ºé—´ä½ç½®
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -134,7 +134,7 @@ int light_caster()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	// ËÄ¸öµã¹âµÄÎ»ÖÃ
+	// å››ä¸ªç‚¹å…‰çš„ä½ç½®
 	glm::vec3 pointLightPositions[] = {
 		glm::vec3(0.7f,  0.2f,  2.0f),
 		glm::vec3(2.3f, -3.3f, -4.0f),
@@ -142,7 +142,7 @@ int light_caster()
 		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
-	// °óÎïÌåµÄVAO¡¢VBO
+	// ç»‘ç‰©ä½“çš„VAOã€VBO
 	unsigned int VBO, ordinaryCudeVAO;
 	glGenVertexArrays(1, &ordinaryCudeVAO);
 	glGenBuffers(1, &VBO);
@@ -151,7 +151,7 @@ int light_caster()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glBindVertexArray(ordinaryCudeVAO);
-	// ¶¥µãÊôĞÔ
+	// é¡¶ç‚¹å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -159,17 +159,17 @@ int light_caster()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	// °ó¹âÔ´µÄVAO£¨¹²ÓÃVBO£©
+	// ç»‘å…‰æºçš„VAOï¼ˆå…±ç”¨VBOï¼‰
 	unsigned int lightCubeVAO;
 	glGenVertexArrays(1, &lightCubeVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	glBindVertexArray(lightCubeVAO);
-	// ¶¥µãÊôĞÔ
+	// é¡¶ç‚¹å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader lightShader("./shader/4-light-vs.glsl", "./shader/4-light-fs.glsl");
 	Shader materialShader("./shader/4-material-vs.glsl", "./shader/4-material-fs.glsl");
 
@@ -181,10 +181,10 @@ int light_caster()
 	materialShader.setInt("material.specular", 1);
 
 
-	// ¿ªÆôÉî¶È²âÊÔ
+	// å¼€å¯æ·±åº¦æµ‹è¯•
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -195,24 +195,24 @@ int light_caster()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// »æÖÆÎïÌå
+		// ç»˜åˆ¶ç‰©ä½“
 		materialShader.use();
 		materialShader.setVec3("viewPos", camera.Position);
 		materialShader.setFloat("material.shininess", 64.0f);
 
-		// °ó¶¨ÎÆÀí
+		// ç»‘å®šçº¹ç†
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, specularMap);
 
-		// ¹âÕÕÊôĞÔ
-		// ·½Ïò¹â
+		// å…‰ç…§å±æ€§
+		// æ–¹å‘å…‰
 		materialShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
 		materialShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
 		materialShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
 		materialShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-		// µã¹â 1
+		// ç‚¹å…‰ 1
 		materialShader.setVec3("pointLights[0].position", pointLightPositions[0]);
 		materialShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
 		materialShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
@@ -220,7 +220,7 @@ int light_caster()
 		materialShader.setFloat("pointLights[0].constant", 1.0f);
 		materialShader.setFloat("pointLights[0].linear", 0.09f);
 		materialShader.setFloat("pointLights[0].quadratic", 0.032f);
-		// µã¹â 2
+		// ç‚¹å…‰ 2
 		materialShader.setVec3("pointLights[1].position", pointLightPositions[1]);
 		materialShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
 		materialShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
@@ -228,7 +228,7 @@ int light_caster()
 		materialShader.setFloat("pointLights[1].constant", 1.0f);
 		materialShader.setFloat("pointLights[1].linear", 0.09f);
 		materialShader.setFloat("pointLights[1].quadratic", 0.032f);
-		// µã¹â 3
+		// ç‚¹å…‰ 3
 		materialShader.setVec3("pointLights[2].position", pointLightPositions[2]);
 		materialShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
 		materialShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
@@ -236,7 +236,7 @@ int light_caster()
 		materialShader.setFloat("pointLights[2].constant", 1.0f);
 		materialShader.setFloat("pointLights[2].linear", 0.09f);
 		materialShader.setFloat("pointLights[2].quadratic", 0.032f);
-		// µã¹â 4
+		// ç‚¹å…‰ 4
 		materialShader.setVec3("pointLights[3].position", pointLightPositions[3]);
 		materialShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
 		materialShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
@@ -244,7 +244,7 @@ int light_caster()
 		materialShader.setFloat("pointLights[3].constant", 1.0f);
 		materialShader.setFloat("pointLights[3].linear", 0.09f);
 		materialShader.setFloat("pointLights[3].quadratic", 0.032f);
-		// ¾Û¹â
+		// èšå…‰
 		materialShader.setVec3("spotLight.position", camera.Position);
 		materialShader.setVec3("spotLight.direction", camera.Front);
 		materialShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
@@ -277,7 +277,7 @@ int light_caster()
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
-		// »æÖÆ¹âÔ´
+		// ç»˜åˆ¶å…‰æº
 		lightShader.use();
 		lightShader.setMat4("projection", projection);
 		lightShader.setMat4("view", view);

@@ -1,7 +1,7 @@
 /*
 * Phong Lighting
 * Phong Shading
-* °×É«ÊÇ¹âÔ´cube£¬»ÆÉ«ÊÇÆÕÍ¨cube
+* ç™½è‰²æ˜¯å…‰æºcubeï¼Œé»„è‰²æ˜¯æ™®é€šcube
 * https://learnopengl-cn.github.io/02%20Lighting/02%20Basic%20Lighting/
 */
 
@@ -25,14 +25,14 @@ int basic_lighting();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -50,7 +50,7 @@ int basic_lighting()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -64,7 +64,7 @@ int basic_lighting()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -73,7 +73,7 @@ int basic_lighting()
 		return -1;
 	}
 
-	// ¶¥µã
+	// é¡¶ç‚¹
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -118,7 +118,7 @@ int basic_lighting()
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
 
-	// ²»Í¬Á¢·½ÌåµÄÊÀ½ç¿Õ¼äÎ»ÖÃ
+	// ä¸åŒç«‹æ–¹ä½“çš„ä¸–ç•Œç©ºé—´ä½ç½®
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -132,7 +132,7 @@ int basic_lighting()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	// °óÆÕÍ¨cubeµÄVAO¡¢VBO
+	// ç»‘æ™®é€šcubeçš„VAOã€VBO
 	unsigned int VBO, ordinaryCudeVAO;
 	glGenVertexArrays(1, &ordinaryCudeVAO);
 	glGenBuffers(1, &VBO);
@@ -141,31 +141,31 @@ int basic_lighting()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	// ·¨ÏßÊôĞÔ
+	// æ³•çº¿å±æ€§
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	// °ó¹âÔ´cubeµÄVAO£¨¹²ÓÃVBO£©
+	// ç»‘å…‰æºcubeçš„VAOï¼ˆå…±ç”¨VBOï¼‰
 	unsigned int lightCubeVAO;
 	glGenVertexArrays(1, &lightCubeVAO);
 	glBindVertexArray(lightCubeVAO);
 
 	 glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	 glEnableVertexAttribArray(0);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader lightCubeShader("./shader/1-light-cude-vs.glsl", "./shader/1-light-cude-fs.glsl");
 	Shader ordinaryCudeShader("./shader/1-ordinary-cude-vs.glsl", "./shader/1-ordinary-cude-fs.glsl");
 
-	// ¿ªÆôÉî¶È²âÊÔ
+	// å¼€å¯æ·±åº¦æµ‹è¯•
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -174,9 +174,9 @@ int basic_lighting()
 		processInput(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Çå¿Õ
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // æ¸…ç©º
 
-		// »æÖÆÆÕÍ¨cube
+		// ç»˜åˆ¶æ™®é€šcube
 		ordinaryCudeShader.use();
 		ordinaryCudeShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 		ordinaryCudeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
@@ -202,7 +202,7 @@ int basic_lighting()
 		}
 
 
-		// »æÖÆ¹âÔ´cube
+		// ç»˜åˆ¶å…‰æºcube
 		lightCubeShader.use();
 		lightCubeShader.setMat4("projection", projection);
 		lightCubeShader.setMat4("view", view);

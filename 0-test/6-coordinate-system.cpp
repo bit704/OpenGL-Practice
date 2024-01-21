@@ -1,10 +1,10 @@
 /*
-* ×ø±ê±ä»»
+* åæ ‡å˜æ¢
 * Local Space -> World Space -> View Space -> Clip Space -> Screen Space
 * Model Matrix, View Matrix, Projection Matrix, Viewport Matrix
 * https://learnopengl-cn.github.io/01%20Getting%20started/08%20Coordinate%20Systems/
 * 
-* OpenGLÊÇÒ»¸öÓÒÊÖ×ø±êÏµ
+* OpenGLæ˜¯ä¸€ä¸ªå³æ‰‹åæ ‡ç³»
 */
 
 #include <glad/glad.h>
@@ -39,7 +39,7 @@ int coordinate_system()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -48,7 +48,7 @@ int coordinate_system()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // ×¢²á£¬´°¿Úµ÷Õû´óĞ¡µÄÊ±ºòµ÷ÓÃÕâ¸öº¯Êı
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // æ³¨å†Œï¼Œçª—å£è°ƒæ•´å¤§å°çš„æ—¶å€™è°ƒç”¨è¿™ä¸ªå‡½æ•°
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -57,20 +57,20 @@ int coordinate_system()
 	}
 
 
-	// ´´½¨ÎÆÀí1
+	// åˆ›å»ºçº¹ç†1
 	unsigned int texture1;
 	glGenTextures(1, &texture1);
 	glBindTexture(GL_TEXTURE_2D, texture1);
-	// Îªµ±Ç°°ó¶¨µÄÎÆÀí¶ÔÏóÉèÖÃ»·ÈÆ¡¢¹ıÂË·½Ê½
+	// ä¸ºå½“å‰ç»‘å®šçš„çº¹ç†å¯¹è±¡è®¾ç½®ç¯ç»•ã€è¿‡æ»¤æ–¹å¼
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// ¼ÓÔØÍ¼Ïñ
+	// åŠ è½½å›¾åƒ
 	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true); // ÈÃstb_image.hÔÚ¼ÓÔØÍ¼Æ¬Ê±·­×ªyÖá
+	stbi_set_flip_vertically_on_load(true); // è®©stb_image.håœ¨åŠ è½½å›¾ç‰‡æ—¶ç¿»è½¬yè½´
 	unsigned char* data = stbi_load("./texture/bg.jpg", &width, &height, &nrChannels, 0);
-	// ´ÓÍ¼ÏñÉú³ÉÎÆÀí
+	// ä»å›¾åƒç”Ÿæˆçº¹ç†
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -82,7 +82,7 @@ int coordinate_system()
 	}
 	stbi_image_free(data);
 
-	// ´´½¨ÎÆÀí2
+	// åˆ›å»ºçº¹ç†2
 	unsigned int texture2;
 	glGenTextures(1, &texture2);
 	glBindTexture(GL_TEXTURE_2D, texture2);
@@ -103,13 +103,13 @@ int coordinate_system()
 	}
 	stbi_image_free(data);
 
-	// ¶¥µãÎ»ÖÃ¡¢ÑÕÉ«¡¢ÎÆÀí×ø±ê
+	// é¡¶ç‚¹ä½ç½®ã€é¢œè‰²ã€çº¹ç†åæ ‡
 	float vertices[] =
 	{
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // ÓÒÉÏ
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // ÓÒÏÂ
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // ×óÏÂ
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // ×óÉÏ
+		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // å³ä¸Š
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // å³ä¸‹
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // å·¦ä¸‹
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // å·¦ä¸Š
 	};
 
 	unsigned int indices[] =
@@ -118,63 +118,63 @@ int coordinate_system()
 		1, 2, 3
 	};
 
-	// ´´½¨VAO, VBO, IBO
+	// åˆ›å»ºVAO, VBO, IBO
 	unsigned int VAO, VBO, IBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &IBO);
 
-	// ÏÈ°óVAO£¬ÔÙ°óVBO£¬ÔÙÉèÖÃ¶¥µãÊôĞÔ
+	// å…ˆç»‘VAOï¼Œå†ç»‘VBOï¼Œå†è®¾ç½®é¡¶ç‚¹å±æ€§
 	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); // °ÑĞÂ´´½¨µÄ»º³å°ó¶¨µ½GL_ARRAY_BUFFERÄ¿±ê
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // ¶¥µãÊı¾İ¸´ÖÆµ½»º³åµÄÄÚ´æÖĞ
+	glBindBuffer(GL_ARRAY_BUFFER, VBO); // æŠŠæ–°åˆ›å»ºçš„ç¼“å†²ç»‘å®šåˆ°GL_ARRAY_BUFFERç›®æ ‡
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // é¡¶ç‚¹æ•°æ®å¤åˆ¶åˆ°ç¼“å†²çš„å†…å­˜ä¸­
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	// ÑÕÉ«ÊôĞÔ
+	// é¢œè‰²å±æ€§
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	// ÎÆÀí×ø±êÊôĞÔ
+	// çº¹ç†åæ ‡å±æ€§
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader ourShader("./shader/6-vs.glsl", "./shader/6-fs.glsl");
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		processInput(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT); // Çå¿Õ
+		glClear(GL_COLOR_BUFFER_BIT); // æ¸…ç©º
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		ourShader.use(); // ¼¤»î
+		ourShader.use(); // æ¿€æ´»
 
-		// ÉèÖÃÃ¿¸ö×ÅÉ«Æ÷²ÉÑùÆ÷ÊôÓÚÄÄ¸öÎÆÀíµ¥Ôª
+		// è®¾ç½®æ¯ä¸ªç€è‰²å™¨é‡‡æ ·å™¨å±äºå“ªä¸ªçº¹ç†å•å…ƒ
 		ourShader.setInt("texture1", 0);
 		ourShader.setInt("texture2", 1);
 
-		// Model¾ØÕó
+		// ModelçŸ©é˜µ
 		glm::mat4 model;
 		model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		int modelLoc = glGetUniformLocation(ourShader.ID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		// View¾ØÕó
+		// ViewçŸ©é˜µ
 		glm::mat4 view;
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // ×¢Òâ£¬½«¾ØÕóÏòÎÒÃÇÒª½øĞĞÒÆ¶¯³¡¾°µÄ·´·½ÏòÒÆ¶¯
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // æ³¨æ„ï¼Œå°†çŸ©é˜µå‘æˆ‘ä»¬è¦è¿›è¡Œç§»åŠ¨åœºæ™¯çš„åæ–¹å‘ç§»åŠ¨
 		int viewLoc = glGetUniformLocation(ourShader.ID, "view");
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		// Projection¾ØÕó
+		// ProjectionçŸ©é˜µ
 		glm::mat4 projection;
 		projection = glm::perspective(glm::radians(45.0f), (float)ScreenWidth / ScreenHeight, 0.1f, 100.0f);
 		int projectionLoc = glGetUniformLocation(ourShader.ID, "projection");
@@ -183,7 +183,7 @@ int coordinate_system()
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-		glfwSwapBuffers(window); // Ë«»º³å
+		glfwSwapBuffers(window); // åŒç¼“å†²
 		glfwPollEvents();
 	}
 

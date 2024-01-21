@@ -1,6 +1,6 @@
 /*
-* Éî¶È²âÊÔ
-* ÏÔÊ¾Éî¶ÈÍ¼
+* æ·±åº¦æµ‹è¯•
+* æ˜¾ç¤ºæ·±åº¦å›¾
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/01%20Depth%20testing/
 */
 
@@ -25,14 +25,14 @@ int depth_testing();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = ScreenWidth / 2.0f;
 float lastY = ScreenHeight / 2.0f;
 bool firstMouse = true;
 
-// ¼ÆÊ±
-float deltaTime = 0.0f;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+float deltaTime = 0.0f;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 float lastFrame = 0.0f;
 
 glm::vec3 lightPos(0.f, 1.f, 0.f);
@@ -50,7 +50,7 @@ int depth_testing()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -64,7 +64,7 @@ int depth_testing()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -73,7 +73,7 @@ int depth_testing()
 		return -1;
 	}
 
-	// ¶¥µã
+	// é¡¶ç‚¹
 	float vertices[] = {
 		// positions          // normals           // texture coords
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -119,7 +119,7 @@ int depth_testing()
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 	};
 
-	// ²»Í¬Á¢·½ÌåµÄÊÀ½ç¿Õ¼äÎ»ÖÃ
+	// ä¸åŒç«‹æ–¹ä½“çš„ä¸–ç•Œç©ºé—´ä½ç½®
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -133,7 +133,7 @@ int depth_testing()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	// °óÎïÌåµÄVAO¡¢VBO
+	// ç»‘ç‰©ä½“çš„VAOã€VBO
 	unsigned int VBO, ordinaryCudeVAO;
 	glGenVertexArrays(1, &ordinaryCudeVAO);
 	glGenBuffers(1, &VBO);
@@ -142,7 +142,7 @@ int depth_testing()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glBindVertexArray(ordinaryCudeVAO);
-	// ¶¥µãÊôĞÔ
+	// é¡¶ç‚¹å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -150,13 +150,13 @@ int depth_testing()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader materialShader("./shader/0-material-vs.glsl", "./shader/0-material-fs.glsl");
 
-	// ¿ªÆôÉî¶È²âÊÔ
+	// å¼€å¯æ·±åº¦æµ‹è¯•
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -167,7 +167,7 @@ int depth_testing()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// »æÖÆÎïÌå
+		// ç»˜åˆ¶ç‰©ä½“
 		materialShader.use();
 
 		// View / Projection

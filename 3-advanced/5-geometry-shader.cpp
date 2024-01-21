@@ -1,6 +1,6 @@
 /*
-* ¼¸ºÎ×ÅÉ«Æ÷
-* ±¬Õ¨Ğ§¹û
+* å‡ ä½•ç€è‰²å™¨
+* çˆ†ç‚¸æ•ˆæœ
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/09%20Geometry%20Shader/
 */
 #include <glad/glad.h>
@@ -23,14 +23,14 @@ int geometry_shader();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -48,7 +48,7 @@ int geometry_shader()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -62,7 +62,7 @@ int geometry_shader()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -72,10 +72,10 @@ int geometry_shader()
 	}
 
 	/*
-	* Í¨ÓÃ³õÊ¼»¯½áÊø
+	* é€šç”¨åˆå§‹åŒ–ç»“æŸ
 	*/
 
-	// ÅäÖÃÈ«¾ÖOpenGL×´Ì¬
+	// é…ç½®å…¨å±€OpenGLçŠ¶æ€
 	glEnable(GL_DEPTH_TEST);
 
 	Shader shader("./shader/5-vs.glsl", "./shader/5-fs.glsl", "./shader/5-gs.glsl");
@@ -96,14 +96,14 @@ int geometry_shader()
 		// MVP
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)ScreenWidth / (float)ScreenHeight, 1.0f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		view = glm::translate(view, glm::vec3(0.f, -10.f, -10.f)); // Ïà»úÏòÍâÏòÉÏÆ½ÒÆ
+		view = glm::translate(view, glm::vec3(0.f, -10.f, -10.f)); // ç›¸æœºå‘å¤–å‘ä¸Šå¹³ç§»
 		glm::mat4 model = glm::mat4(1.0f);
 		shader.use();
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
 		shader.setMat4("model", model);
 
-		// ÉèÖÃÊ±¼ä
+		// è®¾ç½®æ—¶é—´
 		shader.setFloat("time", static_cast<float>(glfwGetTime()));
 
 		nanosuit.Draw(shader);

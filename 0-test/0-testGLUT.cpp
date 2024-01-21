@@ -1,10 +1,10 @@
 /*
-* Ê¹ÓÃnuget°²×°nupengl
-* ²Î¿¼£ºhttps://www.cnblogs.com/steamedbun/p/11259376.html
-* °üÔÚpackagesÎÄ¼ş¼ĞÏÂ
+* ä½¿ç”¨nugetå®‰è£…nupengl
+* å‚è€ƒï¼šhttps://www.cnblogs.com/steamedbun/p/11259376.html
+* åŒ…åœ¨packagesæ–‡ä»¶å¤¹ä¸‹
 * 
-* Ê¹ÓÃGLUT¿â
-* Computer Graphics with OpenGL µÚËÄ°æ Ê¹ÓÃGLUT
+* ä½¿ç”¨GLUTåº“
+* Computer Graphics with OpenGL ç¬¬å››ç‰ˆ ä½¿ç”¨GLUT
 */
 
 #include<gl/GLUT.H>
@@ -20,30 +20,30 @@ int testGLUT(int, char**);
 int testGLUT(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE); // ´°¿ÚÏÔÊ¾Ä£Ê½£¬RGBÑÕÉ«Ä£ĞÍºÍµ¥»º´æ
-    glutInitWindowPosition(100, 100); // ´°¿ÚµÄ³õÊ¼Î»ÖÃ£¬ÆÁÄ»×óÉÏ½ÇÎªÔ­µã
-    glutInitWindowSize(400, 400); // ´°¿ÚµÄ´óĞ¡
-    glutCreateWindow("test"); // ´°¿Ú±êÌâÃû
-    glutDisplayFunc(&display); // ×¢²áµ±Ç°´°¿ÚµÄÏÔÊ¾»Øµ÷º¯Êı
+    glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE); // çª—å£æ˜¾ç¤ºæ¨¡å¼ï¼ŒRGBé¢œè‰²æ¨¡å‹å’Œå•ç¼“å­˜
+    glutInitWindowPosition(100, 100); // çª—å£çš„åˆå§‹ä½ç½®ï¼Œå±å¹•å·¦ä¸Šè§’ä¸ºåŸç‚¹
+    glutInitWindowSize(400, 400); // çª—å£çš„å¤§å°
+    glutCreateWindow("test"); // çª—å£æ ‡é¢˜å
+    glutDisplayFunc(&display); // æ³¨å†Œå½“å‰çª—å£çš„æ˜¾ç¤ºå›è°ƒå‡½æ•°
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Çå¿ÕÓÃ°×É«
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // æ¸…ç©ºç”¨ç™½è‰²
 
-    glMatrixMode(GL_PROJECTION); // Í¶Ó°±ä»»
-    gluOrtho2D(0.0, 200, 0.0, 150.0); // Ê¹ÓÃÕıÍ¶Ó°½«Ò»¸öx×ø±êÔÚ0~200£¬y×ø±ê0~150·¶Î§ÄÚµÄ¾ØĞÎ×ø±êÇøÓòÍ¶Ó°µ½ÏÔÊ¾Æ÷´°¿Ú
+    glMatrixMode(GL_PROJECTION); // æŠ•å½±å˜æ¢
+    gluOrtho2D(0.0, 200, 0.0, 150.0); // ä½¿ç”¨æ­£æŠ•å½±å°†ä¸€ä¸ªxåæ ‡åœ¨0~200ï¼Œyåæ ‡0~150èŒƒå›´å†…çš„çŸ©å½¢åæ ‡åŒºåŸŸæŠ•å½±åˆ°æ˜¾ç¤ºå™¨çª—å£
 
-    glutMainLoop(); // äÖÈ¾Ñ­»·
+    glutMainLoop(); // æ¸²æŸ“å¾ªç¯
 
     return 0;
 }
 
 void display(void)
 {
-    glClear(GL_COLOR_BUFFER_BIT); // Çå¿Õ
+    glClear(GL_COLOR_BUFFER_BIT); // æ¸…ç©º
 
-    // »æÖÆÒ»¸ö×óÉÏ½ÇÔÚ£¨50£¬100£©£¬ÓÒÏÂ½ÇÔÚ£¨150£¬50£©µÄºÚÉ«¾ØĞÎ
+    // ç»˜åˆ¶ä¸€ä¸ªå·¦ä¸Šè§’åœ¨ï¼ˆ50ï¼Œ100ï¼‰ï¼Œå³ä¸‹è§’åœ¨ï¼ˆ150ï¼Œ50ï¼‰çš„é»‘è‰²çŸ©å½¢
     glColor3f(0.0f, 0.0f, 0.0f); 
     glRectf(50.0f, 100.0f, 150.0f, 50.0f); 
 
-    glFlush(); // Çå¿ÕOpenGLÃüÁî»º³åÇø
+    glFlush(); // æ¸…ç©ºOpenGLå‘½ä»¤ç¼“å†²åŒº
 }
 

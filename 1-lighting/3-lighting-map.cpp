@@ -1,5 +1,5 @@
 /*
-* ÌùÉÏÂş·´ÉäÌùÍ¼ºÍ¸ß¹âÌùÍ¼
+* è´´ä¸Šæ¼«åå°„è´´å›¾å’Œé«˜å…‰è´´å›¾
 * https://learnopengl-cn.github.io/02%20Lighting/04%20Lighting%20maps/
 */
 
@@ -24,14 +24,14 @@ int lighting_map();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -49,7 +49,7 @@ int lighting_map()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -63,7 +63,7 @@ int lighting_map()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -72,7 +72,7 @@ int lighting_map()
 		return -1;
 	}
 
-	// ¶¥µã
+	// é¡¶ç‚¹
 	float vertices[] = {
 		// positions          // normals           // texture coords
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -118,7 +118,7 @@ int lighting_map()
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 	};
 
-	// ²»Í¬Á¢·½ÌåµÄÊÀ½ç¿Õ¼äÎ»ÖÃ
+	// ä¸åŒç«‹æ–¹ä½“çš„ä¸–ç•Œç©ºé—´ä½ç½®
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -132,7 +132,7 @@ int lighting_map()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	// °óÎïÌåµÄVAO¡¢VBO
+	// ç»‘ç‰©ä½“çš„VAOã€VBO
 	unsigned int VBO, ordinaryCudeVAO;
 	glGenVertexArrays(1, &ordinaryCudeVAO);
 	glGenBuffers(1, &VBO);
@@ -141,7 +141,7 @@ int lighting_map()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	
 	glBindVertexArray(ordinaryCudeVAO);
-	// ¶¥µãÊôĞÔ
+	// é¡¶ç‚¹å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -149,17 +149,17 @@ int lighting_map()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	// °ó¹âÔ´µÄVAO£¨¹²ÓÃVBO£©
+	// ç»‘å…‰æºçš„VAOï¼ˆå…±ç”¨VBOï¼‰
 	unsigned int lightCubeVAO;
 	glGenVertexArrays(1, &lightCubeVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	glBindVertexArray(lightCubeVAO);
-	// ¶¥µãÊôĞÔ
+	// é¡¶ç‚¹å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader lightShader("./shader/3-light-vs.glsl", "./shader/3-light-fs.glsl");
 	Shader materialShader("./shader/3-material-vs.glsl", "./shader/3-material-fs.glsl");
 
@@ -171,10 +171,10 @@ int lighting_map()
 	materialShader.setInt("material.specular", 1);
 
 
-	// ¿ªÆôÉî¶È²âÊÔ
+	// å¼€å¯æ·±åº¦æµ‹è¯•
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -185,23 +185,23 @@ int lighting_map()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// »æÖÆÎïÌå
+		// ç»˜åˆ¶ç‰©ä½“
 		materialShader.use();
 		materialShader.setVec3("lightPos", lightPos);
 		materialShader.setVec3("viewPos", camera.Position);
 
-		// °ó¶¨ÎÆÀí
+		// ç»‘å®šçº¹ç†
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, specularMap);
 
-		// ¹âÕÕÊôĞÔ
+		// å…‰ç…§å±æ€§
 		materialShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		materialShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 		materialShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
-		// ²ÄÖÊÊôĞÔ
+		// æè´¨å±æ€§
 		materialShader.setFloat("material.shininess", 64.0f);
 
 		// View / Projection
@@ -225,7 +225,7 @@ int lighting_map()
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
-		// »æÖÆ¹âÔ´
+		// ç»˜åˆ¶å…‰æº
 		lightShader.use();
 		lightShader.setMat4("projection", projection);
 		lightShader.setMat4("view", view);

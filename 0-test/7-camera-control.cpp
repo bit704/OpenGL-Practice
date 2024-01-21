@@ -1,5 +1,5 @@
 /*
-* ³éÏóÏà»úÀà
+* æŠ½è±¡ç›¸æœºç±»
 * https://learnopengl-cn.github.io/01%20Getting%20started/09%20Camera/
 */
 
@@ -24,14 +24,14 @@ int camera_control();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = ScreenWidth / 2.0f;
 float lastY = ScreenHeight / 2.0f;
 bool firstMouse = true;
 
-// ¼ÆÊ±
-float deltaTime = 0.0f;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+float deltaTime = 0.0f;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 float lastFrame = 0.0f;
 
 int main()
@@ -47,7 +47,7 @@ int camera_control()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -61,7 +61,7 @@ int camera_control()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -70,20 +70,20 @@ int camera_control()
 		return -1;
 	}
 
-	// ´´½¨ÎÆÀí1
+	// åˆ›å»ºçº¹ç†1
 	unsigned int texture1;
 	glGenTextures(1, &texture1);
 	glBindTexture(GL_TEXTURE_2D, texture1);
-	// Îªµ±Ç°°ó¶¨µÄÎÆÀí¶ÔÏóÉèÖÃ»·ÈÆ¡¢¹ıÂË·½Ê½
+	// ä¸ºå½“å‰ç»‘å®šçš„çº¹ç†å¯¹è±¡è®¾ç½®ç¯ç»•ã€è¿‡æ»¤æ–¹å¼
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// ¼ÓÔØÍ¼Ïñ
+	// åŠ è½½å›¾åƒ
 	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true); // ÈÃstb_image.hÔÚ¼ÓÔØÍ¼Æ¬Ê±·­×ªyÖá
+	stbi_set_flip_vertically_on_load(true); // è®©stb_image.håœ¨åŠ è½½å›¾ç‰‡æ—¶ç¿»è½¬yè½´
 	unsigned char* data = stbi_load("./texture/bg.jpg", &width, &height, &nrChannels, 0);
-	// ´ÓÍ¼ÏñÉú³ÉÎÆÀí
+	// ä»å›¾åƒç”Ÿæˆçº¹ç†
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -95,7 +95,7 @@ int camera_control()
 	}
 	stbi_image_free(data);
 
-	// ´´½¨ÎÆÀí2
+	// åˆ›å»ºçº¹ç†2
 	unsigned int texture2;
 	glGenTextures(1, &texture2);
 	glBindTexture(GL_TEXTURE_2D, texture2);
@@ -116,7 +116,7 @@ int camera_control()
 	}
 	stbi_image_free(data);
 
-	// ¶¥µã
+	// é¡¶ç‚¹
 	float vertices[] = {
 	   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -161,7 +161,7 @@ int camera_control()
 	   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	// ²»Í¬Á¢·½ÌåµÄÊÀ½ç¿Õ¼äÎ»ÖÃ
+	// ä¸åŒç«‹æ–¹ä½“çš„ä¸–ç•Œç©ºé—´ä½ç½®
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -175,36 +175,36 @@ int camera_control()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	// ´´½¨VAO, VBO
+	// åˆ›å»ºVAO, VBO
 	unsigned int VAO, VBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
-	// ÏÈ°óVAO£¬ÔÙ°óVBO£¬ÔÙÉèÖÃ¶¥µãÊôĞÔ
+	// å…ˆç»‘VAOï¼Œå†ç»‘VBOï¼Œå†è®¾ç½®é¡¶ç‚¹å±æ€§
 	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); // °ÑĞÂ´´½¨µÄ»º³å°ó¶¨µ½GL_ARRAY_BUFFERÄ¿±ê
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // ¶¥µãÊı¾İ¸´ÖÆµ½»º³åµÄÄÚ´æÖĞ
+	glBindBuffer(GL_ARRAY_BUFFER, VBO); // æŠŠæ–°åˆ›å»ºçš„ç¼“å†²ç»‘å®šåˆ°GL_ARRAY_BUFFERç›®æ ‡
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // é¡¶ç‚¹æ•°æ®å¤åˆ¶åˆ°ç¼“å†²çš„å†…å­˜ä¸­
 
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	// ÎÆÀí×ø±êÊôĞÔ
+	// çº¹ç†åæ ‡å±æ€§
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader ourShader("./shader/7-vs.glsl", "./shader/7-fs.glsl");
 
-	// ÉèÖÃÃ¿¸ö×ÅÉ«Æ÷²ÉÑùÆ÷ÊôÓÚÄÄ¸öÎÆÀíµ¥Ôª
+	// è®¾ç½®æ¯ä¸ªç€è‰²å™¨é‡‡æ ·å™¨å±äºå“ªä¸ªçº¹ç†å•å…ƒ
 	ourShader.use();
 	ourShader.setInt("texture1", 0);
 	ourShader.setInt("texture2", 1);
 
-	// ¿ªÆôÉî¶È²âÊÔ
+	// å¼€å¯æ·±åº¦æµ‹è¯•
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -213,14 +213,14 @@ int camera_control()
 		processInputAug(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Çå¿Õ
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // æ¸…ç©º
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		ourShader.use(); // ¼¤»î
+		ourShader.use(); // æ¿€æ´»
 
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)ScreenWidth / (float)ScreenHeight, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);

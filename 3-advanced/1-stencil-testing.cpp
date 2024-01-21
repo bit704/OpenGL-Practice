@@ -1,6 +1,6 @@
 /*
-* Ä£°å²âÊÔ
-* »æÖÆÎïÌå±ßÔµ
+* æ¨¡æ¿æµ‹è¯•
+* ç»˜åˆ¶ç‰©ä½“è¾¹ç¼˜
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/02%20Stencil%20testing/
 */
 
@@ -25,14 +25,14 @@ int stencil_testing();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -50,7 +50,7 @@ int stencil_testing()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -64,7 +64,7 @@ int stencil_testing()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -74,7 +74,7 @@ int stencil_testing()
 	}
 
 	/*
-	* Í¨ÓÃ³õÊ¼»¯½áÊø
+	* é€šç”¨åˆå§‹åŒ–ç»“æŸ
 	*/
 
 	float cubeVertices[] = {
@@ -158,26 +158,26 @@ int stencil_testing()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glBindVertexArray(0);
 
-	// ¼ÓÔØÎÆÀí
+	// åŠ è½½çº¹ç†
 	unsigned int cubeTexture = loadTexture("./texture/metal.jpg");
 	unsigned int floorTexture = loadTexture("./texture/marble.jpg");
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader materialShader("./shader/1-material-vs.glsl", "./shader/1-material-fs.glsl");
 	Shader outlineShader("./shader/1-material-vs.glsl", "./shader/1-outline-fs.glsl");
 
 	materialShader.use();
 	materialShader.setInt("texture1", 0);
 
-	// OpenGLÈ«¾Ö×´Ì¬
+	// OpenGLå…¨å±€çŠ¶æ€
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
 	glEnable(GL_STENCIL_TEST);
 	glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // ÈôÍ¨¹ıÄ£°å²âÊÔºÍÉî¶È²âÊÔ£¬¸üĞÂÄ£°åÖµÎªglStencilFuncÉèÖÃµÄ²Î¿¼Öµ£¨µÚ¶ş¸ö²ÎÊı£©
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // è‹¥é€šè¿‡æ¨¡æ¿æµ‹è¯•å’Œæ·±åº¦æµ‹è¯•ï¼Œæ›´æ–°æ¨¡æ¿å€¼ä¸ºglStencilFuncè®¾ç½®çš„å‚è€ƒå€¼ï¼ˆç¬¬äºŒä¸ªå‚æ•°ï¼‰
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -199,21 +199,21 @@ int stencil_testing()
 		materialShader.setMat4("view", view);
 		materialShader.setMat4("projection", projection);
 
-		// ²»°ÑfloorĞ´Èëstencil buffer
-		glStencilMask(0x00); // Óë½«ÒªĞ´Èë»º³åµÄÄ£°åÖµ½øĞĞÓëÔËËã£¬ÉèÎª0x00Ê±×ÜĞ´Èë0
+		// ä¸æŠŠfloorå†™å…¥stencil buffer
+		glStencilMask(0x00); // ä¸å°†è¦å†™å…¥ç¼“å†²çš„æ¨¡æ¿å€¼è¿›è¡Œä¸è¿ç®—ï¼Œè®¾ä¸º0x00æ—¶æ€»å†™å…¥0
 		
-		// »æÖÆfloor
+		// ç»˜åˆ¶floor
 		glBindVertexArray(planeVAO);
 		glBindTexture(GL_TEXTURE_2D, floorTexture);
 		materialShader.setMat4("model", glm::mat4(1.0f));
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
-		// ×ÜÊÇĞ´Èëstencil buffer
+		// æ€»æ˜¯å†™å…¥stencil buffer
 		glStencilFunc(GL_ALWAYS, 1, 0xFF);
 		glStencilMask(0xFF);
 
-		// Õı³£»æÖÆcube
+		// æ­£å¸¸ç»˜åˆ¶cube
 		glBindVertexArray(cubeVAO);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, cubeTexture);
@@ -225,13 +225,13 @@ int stencil_testing()
 		materialShader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); // Ä£°åÖµ²»µÈÓÚ1Ê±Í¨¹ıÄ£°å²âÊÔ
-		glStencilMask(0x00); // ²»¸Ä±ästencil buffer
-		glDisable(GL_DEPTH_TEST); // È¡ÏûÉî¶È²âÊÔ
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); // æ¨¡æ¿å€¼ä¸ç­‰äº1æ—¶é€šè¿‡æ¨¡æ¿æµ‹è¯•
+		glStencilMask(0x00); // ä¸æ”¹å˜stencil buffer
+		glDisable(GL_DEPTH_TEST); // å–æ¶ˆæ·±åº¦æµ‹è¯•
 		outlineShader.use();
-		float scale = 1.1f; // ·Å´óÒò×Ó
+		float scale = 1.1f; // æ”¾å¤§å› å­
 
-		// »æÖÆcube±ßÔµ
+		// ç»˜åˆ¶cubeè¾¹ç¼˜
 		glBindVertexArray(cubeVAO);
 		glBindTexture(GL_TEXTURE_2D, cubeTexture);
 		model = glm::mat4(1.0f);

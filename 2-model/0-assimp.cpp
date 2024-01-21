@@ -1,15 +1,15 @@
 /*
-* ³éÏó³öMeshÀàºÍModelÀà
-* Ê¹ÓÃassimp
+* æŠ½è±¡å‡ºMeshç±»å’ŒModelç±»
+* ä½¿ç”¨assimp
 * https://learnopengl-cn.github.io/03%20Model%20Loading/01%20Assimp/
 * https://learnopengl-cn.github.io/03%20Model%20Loading/02%20Mesh/
 * https://learnopengl-cn.github.io/03%20Model%20Loading/03%20Model/
 * 
-* ÏÂÔØassimp£ºhttps://assimp.org/
-* ½«Í·ÎÄ¼şÎÄ¼ş¼Ğ¼ÓÈë ÊôĞÔ -> C/C++ -> ¸½¼Ó°üº¬Ä¿Â¼
-* ½«¿âÎÄ¼ş¼Ğ¼ÓÈë ÊôĞÔ -> Á´½ÓÆ÷ -> ³£¹æ -> ¸½¼Ó¿âÄ¿Â¼
-* ½«¾ßÌå¿âÎÄ¼şÃû¼ÓÈë ÊôĞÔ -> Á´½ÓÆ÷ -> ÊäÈë -> ¸½¼ÓÒÀÀµÏî
-* dllµ¥¶ÀÅäÖÃ£¬ÁíÍâ½« PATH=dllËùÔÚÎÄ¼ş¼Ğ ¼ÓÈëÊôĞÔ -> µ÷ÊÔ -> »·¾³
+* ä¸‹è½½assimpï¼šhttps://assimp.org/
+* å°†å¤´æ–‡ä»¶æ–‡ä»¶å¤¹åŠ å…¥ å±æ€§ -> C/C++ -> é™„åŠ åŒ…å«ç›®å½•
+* å°†åº“æ–‡ä»¶å¤¹åŠ å…¥ å±æ€§ -> é“¾æ¥å™¨ -> å¸¸è§„ -> é™„åŠ åº“ç›®å½•
+* å°†å…·ä½“åº“æ–‡ä»¶ååŠ å…¥ å±æ€§ -> é“¾æ¥å™¨ -> è¾“å…¥ -> é™„åŠ ä¾èµ–é¡¹
+* dllå•ç‹¬é…ç½®ï¼Œå¦å¤–å°† PATH=dllæ‰€åœ¨æ–‡ä»¶å¤¹ åŠ å…¥å±æ€§ -> è°ƒè¯• -> ç¯å¢ƒ
 * https://blog.csdn.net/qq_34510318/article/details/128705494
 */
 
@@ -73,9 +73,9 @@ int main()
         return -1;
     }
 
-    stbi_set_flip_vertically_on_load(true); // ¼ÓÔØÄ£ĞÍÖ®Ç°ÈÃstb_image.h·´×ªy-axis
+    stbi_set_flip_vertically_on_load(true); // åŠ è½½æ¨¡å‹ä¹‹å‰è®©stb_image.håè½¬y-axis
  
-    // ¼ÓÔØÄ£ĞÍ
+    // åŠ è½½æ¨¡å‹
     Model ourModel("../obj/nanosuit/nanosuit.obj");
 
     Shader ourShader("./shader/vs.glsl", "./shader/fs.glsl");
@@ -83,7 +83,7 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
-        // ¼ÆËãÊ±¼ä
+        // è®¡ç®—æ—¶é—´
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
@@ -98,7 +98,7 @@ int main()
         // View / Projection
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)ScreenWidth / (float)ScreenHeight, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
-        view = glm::translate(view, glm::vec3(0.f, -10.f, -10.f)); // Ïà»úÏòÍâÏòÉÏÆ½ÒÆ
+        view = glm::translate(view, glm::vec3(0.f, -10.f, -10.f)); // ç›¸æœºå‘å¤–å‘ä¸Šå¹³ç§»
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 

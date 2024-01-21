@@ -1,6 +1,6 @@
 /*
-* ÊµÀı»¯
-* Í¬Ê±»æÖÆ´óÁ¿ÖØ¸´ÎïÌå
+* å®ä¾‹åŒ–
+* åŒæ—¶ç»˜åˆ¶å¤§é‡é‡å¤ç‰©ä½“
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/10%20Instancing/
 */
 #include <glad/glad.h>
@@ -23,14 +23,14 @@ int instancing();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -48,7 +48,7 @@ int instancing()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -62,7 +62,7 @@ int instancing()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -72,10 +72,10 @@ int instancing()
 	}
 
 	/*
-	* Í¨ÓÃ³õÊ¼»¯½áÊø
+	* é€šç”¨åˆå§‹åŒ–ç»“æŸ
 	*/
 
-	// ÅäÖÃÈ«¾ÖOpenGL×´Ì¬
+	// é…ç½®å…¨å±€OpenGLçŠ¶æ€
 	glEnable(GL_DEPTH_TEST);
 
 	Shader asteroidShader("./shader/6-asteroids-vs.glsl", "./shader/6-asteroids-fs.glsl");
@@ -84,7 +84,7 @@ int instancing()
 	Model rock("../obj/rock/rock.obj");
 	Model planet("../obj/planet/planet.obj");
 
-    // Éú³ÉÒ»Åú°ëËæ»úModel¾ØÕó
+    // ç”Ÿæˆä¸€æ‰¹åŠéšæœºModelçŸ©é˜µ
     unsigned int amount = 100000;
     glm::mat4* modelMatrices;
     modelMatrices = new glm::mat4[amount];
@@ -116,7 +116,7 @@ int instancing()
         modelMatrices[i] = model;
     }
 
-    // ÅäÖÃ instanced array
+    // é…ç½® instanced array
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
@@ -159,10 +159,10 @@ int instancing()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // VP¾ØÕó¹«ÓÃ
+        // VPçŸ©é˜µå…¬ç”¨
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)ScreenWidth / (float)ScreenHeight, 0.1f, 1000.0f);
         glm::mat4 view = camera.GetViewMatrix();
-        view = glm::translate(view, glm::vec3(0.f, 0.f, -100.f)); // Ïà»úÏòÍâÆ½ÒÆ
+        view = glm::translate(view, glm::vec3(0.f, 0.f, -100.f)); // ç›¸æœºå‘å¤–å¹³ç§»
         asteroidShader.use();
         asteroidShader.setMat4("projection", projection);
         asteroidShader.setMat4("view", view);
@@ -170,14 +170,14 @@ int instancing()
         planetShader.setMat4("projection", projection);
         planetShader.setMat4("view", view);
 
-        // »æÖÆplanet
+        // ç»˜åˆ¶planet
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -3.0f, 0.0f));
         model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
         planetShader.setMat4("model", model);
         planet.Draw(planetShader);
 
-        // »æÖÆasteroid
+        // ç»˜åˆ¶asteroid
         asteroidShader.use();
         asteroidShader.setInt("texture_diffuse1", 0);
         glActiveTexture(GL_TEXTURE0);

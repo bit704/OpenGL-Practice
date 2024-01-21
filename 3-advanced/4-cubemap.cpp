@@ -1,5 +1,5 @@
 /*
-* Á¢·½ÌåÌùÍ¼¡¢·´Éä
+* ç«‹æ–¹ä½“è´´å›¾ã€åå°„
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/06%20Cubemaps/
 */
 
@@ -29,14 +29,14 @@ int cubemap();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -54,7 +54,7 @@ int cubemap()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -68,7 +68,7 @@ int cubemap()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -78,7 +78,7 @@ int cubemap()
 	}
 
 	/*
-	* Í¨ÓÃ³õÊ¼»¯½áÊø
+	* é€šç”¨åˆå§‹åŒ–ç»“æŸ
 	*/
 
 	float cubeVertices[] = {
@@ -193,7 +193,7 @@ int cubemap()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
-	// Á¢·½ÌåÌùÍ¼ÎÆÀí
+	// ç«‹æ–¹ä½“è´´å›¾çº¹ç†
 	vector<std::string> faces
 	{
 		"./texture/skybox/right.jpg",
@@ -205,7 +205,7 @@ int cubemap()
 	};
 	unsigned int cubemapTexture = loadCubemap(faces);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader shader("./shader/4-vs.glsl", "./shader/4-fs.glsl");
 	Shader skyboxShader("./shader/4-skybox-vs.glsl", "./shader/4-skybox-fs.glsl");
 
@@ -214,10 +214,10 @@ int cubemap()
 	skyboxShader.use();
 	skyboxShader.setInt("skybox", 0);
 
-	// OpenGLÈ«¾Ö×´Ì¬
+	// OpenGLå…¨å±€çŠ¶æ€
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -228,7 +228,7 @@ int cubemap()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// »æÖÆ³¡¾°
+		// ç»˜åˆ¶åœºæ™¯
 		shader.use();
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = camera.GetViewMatrix();
@@ -244,10 +244,10 @@ int cubemap()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
 
-		// »æÖÆÌì¿ÕºĞ
-		glDepthFunc(GL_LEQUAL);  // Éî¶ÈÖµµÈÓÚÉî¶È»º³åÖĞÖµÊ±Í¨¹ıÉî¶È²âÊÔ£¨Ìì¿ÕºĞÉî¶ÈÒÑÔÚ4-skybox-vs.glslÖĞÉèÎª1£©
+		// ç»˜åˆ¶å¤©ç©ºç›’
+		glDepthFunc(GL_LEQUAL);  // æ·±åº¦å€¼ç­‰äºæ·±åº¦ç¼“å†²ä¸­å€¼æ—¶é€šè¿‡æ·±åº¦æµ‹è¯•ï¼ˆå¤©ç©ºç›’æ·±åº¦å·²åœ¨4-skybox-vs.glslä¸­è®¾ä¸º1ï¼‰
 		skyboxShader.use();
-		view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // È¥µôview matrixµÄÆ½ÒÆ
+		view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // å»æ‰view matrixçš„å¹³ç§»
 		skyboxShader.setMat4("view", view);
 		skyboxShader.setMat4("projection", projection);
 		// skybox cube
@@ -256,7 +256,7 @@ int cubemap()
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
-		glDepthFunc(GL_LESS); // ÖØÉèÉî¶Èº¯ÊıÎªÄ¬ÈÏ
+		glDepthFunc(GL_LESS); // é‡è®¾æ·±åº¦å‡½æ•°ä¸ºé»˜è®¤
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

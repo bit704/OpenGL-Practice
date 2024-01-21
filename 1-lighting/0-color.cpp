@@ -1,6 +1,6 @@
 /*
-* Ê¹ÓÃ¹âÔ´
-* °×É«ÊÇ¹âÔ´cube£¬»ÆÉ«ÊÇÆÕÍ¨cube
+* ä½¿ç”¨å…‰æº
+* ç™½è‰²æ˜¯å…‰æºcubeï¼Œé»„è‰²æ˜¯æ™®é€šcube
 * https://learnopengl-cn.github.io/02%20Lighting/01%20Colors/
 */
 
@@ -24,14 +24,14 @@ int color();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = ScreenWidth / 2.0f;
 float lastY = ScreenHeight / 2.0f;
 bool firstMouse = true;
 
-// ¼ÆÊ±
-float deltaTime = 0.0f;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+float deltaTime = 0.0f;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 float lastFrame = 0.0f;
 
 glm::vec3 lightPos(0.f, 1.f, 0.f);
@@ -49,7 +49,7 @@ int color()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -63,7 +63,7 @@ int color()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -72,7 +72,7 @@ int color()
 		return -1;
 	}
 
-	// ¶¥µã
+	// é¡¶ç‚¹
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,
 		 0.5f, -0.5f, -0.5f,
@@ -117,7 +117,7 @@ int color()
 		-0.5f,  0.5f, -0.5f,
 	};
 
-	// ²»Í¬Á¢·½ÌåµÄÊÀ½ç¿Õ¼äÎ»ÖÃ
+	// ä¸åŒç«‹æ–¹ä½“çš„ä¸–ç•Œç©ºé—´ä½ç½®
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -131,7 +131,7 @@ int color()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	// °óÆÕÍ¨cubeµÄVAO¡¢VBO
+	// ç»‘æ™®é€šcubeçš„VAOã€VBO
 	unsigned int VBO, ordinaryCudeVAO;
 	glGenVertexArrays(1, &ordinaryCudeVAO);
 	glGenBuffers(1, &VBO);
@@ -140,29 +140,29 @@ int color()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// °ó¹âÔ´cubeµÄVAO£¨¹²ÓÃVBO£©
+	// ç»‘å…‰æºcubeçš„VAOï¼ˆå…±ç”¨VBOï¼‰
 	unsigned int lightCubeVAO;
 	glGenVertexArrays(1, &lightCubeVAO);
 	glBindVertexArray(lightCubeVAO);
 	
 	// glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	// Î»ÖÃÊôĞÔ
+	// ä½ç½®å±æ€§
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// ´´½¨×ÅÉ«Æ÷
+	// åˆ›å»ºç€è‰²å™¨
 	Shader lightCubeShader("./shader/0-light-cude-vs.glsl", "./shader/0-light-cude-fs.glsl");
 	Shader ordinaryCudeShader("./shader/0-ordinary-cude-vs.glsl", "./shader/0-ordinary-cude-fs.glsl");
 	
-	// ¿ªÆôÉî¶È²âÊÔ
+	// å¼€å¯æ·±åº¦æµ‹è¯•
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) // äÖÈ¾Ñ­»·
+	while (!glfwWindowShouldClose(window)) // æ¸²æŸ“å¾ªç¯
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -171,9 +171,9 @@ int color()
 		processInput(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Çå¿Õ
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // æ¸…ç©º
 
-		// »æÖÆÆÕÍ¨cube
+		// ç»˜åˆ¶æ™®é€šcube
 		ordinaryCudeShader.use();
 		ordinaryCudeShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 		ordinaryCudeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
@@ -181,7 +181,7 @@ int color()
 		glm::mat4 view = camera.GetViewMatrix();
 		ordinaryCudeShader.setMat4("projection", projection);
 		ordinaryCudeShader.setMat4("view", view);
-		// °óVAO
+		// ç»‘VAO
 		glBindVertexArray(ordinaryCudeVAO);
 		glm::mat4 model;
 		for (unsigned int i = 0; i < 10; i++)
@@ -196,7 +196,7 @@ int color()
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
-		// »æÖÆ¹âÔ´cube
+		// ç»˜åˆ¶å…‰æºcube
 		lightCubeShader.use();
 		lightCubeShader.setMat4("projection", projection);
 		lightCubeShader.setMat4("view", view);

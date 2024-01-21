@@ -1,12 +1,12 @@
 /*
-* ·´×ßÑù
+* åèµ°æ ·
 * https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/11%20Anti%20Aliasing/
 * 
-* OpenGLÖ±½Ó¿ªÆô£º
+* OpenGLç›´æ¥å¼€å¯ï¼š
 * glfwWindowHint(GLFW_SAMPLES, 4);
 * glEnable(GL_MULTISAMPLE);
 * 
-* ¿ÉÒÔÊ¹ÓÃframebufferÊµÏÖÀëÆÁMSAA
+* å¯ä»¥ä½¿ç”¨framebufferå®ç°ç¦»å±MSAA
 */
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -28,14 +28,14 @@ int anti_aliasing();
 const unsigned int ScreenWidth = 800;
 const unsigned int ScreenHeight = 600;
 
-// Ïà»ú
+// ç›¸æœº
 extern Camera camera;
 extern float lastX;
 extern float lastY;
 extern bool firstMouse;
 
-// ¼ÆÊ±
-extern float deltaTime;	// µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±²î
+// è®¡æ—¶
+extern float deltaTime;	// å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶å·®
 extern float lastFrame;
 
 extern glm::vec3 lightPos;
@@ -53,9 +53,9 @@ int anti_aliasing()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for Mac OS X
 
-    glfwWindowHint(GLFW_SAMPLES, 4); // Ô­½Ì³Ì´úÂëÖĞÂ©µôÁËÕâ¸ö£¬Ê§È¥·´×ßÑùĞ§¹û
+    glfwWindowHint(GLFW_SAMPLES, 4); // åŸæ•™ç¨‹ä»£ç ä¸­æ¼æ‰äº†è¿™ä¸ªï¼Œå¤±å»åèµ°æ ·æ•ˆæœ
 
-	// ´´½¨Ò»¸ö´°¿Ú¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªçª—å£å¯¹è±¡
 	GLFWwindow* window = glfwCreateWindow(ScreenWidth, ScreenHeight, "test", NULL, NULL);
 	if (window == NULL)
 	{
@@ -69,7 +69,7 @@ int anti_aliasing()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 
-	// ¸æËßGLFW²¶»ñÊó±ê
+	// å‘Šè¯‰GLFWæ•è·é¼ æ ‡
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -79,10 +79,10 @@ int anti_aliasing()
 	}
 
 	/*
-	* Í¨ÓÃ³õÊ¼»¯½áÊø
+	* é€šç”¨åˆå§‹åŒ–ç»“æŸ
 	*/
 
-	// ÅäÖÃÈ«¾ÖOpenGL×´Ì¬
+	// é…ç½®å…¨å±€OpenGLçŠ¶æ€
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
 
